@@ -88,16 +88,21 @@ namespace HUB.Controllers
         // POST: OrderController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Customer customer)
         {
-            try
+            string apiUrl = "https://localhost:7223/api/customer";
+            using (HttpClient client = new HttpClient())
             {
-                return RedirectToAction(nameof(Index));
+                StringContent content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Delete));
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(customer);
         }
     }
 }
