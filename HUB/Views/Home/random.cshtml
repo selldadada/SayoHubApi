@@ -1,0 +1,29 @@
+﻿@{
+    var characters = ViewBag.Characters;
+    var error = ViewBag.Error;
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <p>@error</p>
+}
+else if (characters != null)
+{
+    <h2>All Harry Potter Characters</h2>
+    <ul>
+        @foreach (var character in characters)
+        {
+            <li>
+                <strong>@character.name</strong><br />
+                <img src="@character.image" alt="@character.name" style="width:100px; height:auto;" /><br />
+                <strong>House:</strong> @character.house<br />
+                <strong>Ancestry:</strong> @character.ancestry<br />
+                <strong>Actor:</strong> @character.actor
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No character data available at the moment.</p>
+}
