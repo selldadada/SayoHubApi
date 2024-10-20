@@ -19,7 +19,7 @@ namespace HUB.Controllers
             return View();
         }
 
-        public async Task<ActionResult> random()
+        public async Task<ActionResult> HarryPotter()
         {
             string apiUrl = "https://hp-api.herokuapp.com/api/characters";
             using (HttpClient client = new HttpClient())
